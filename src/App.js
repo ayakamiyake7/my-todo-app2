@@ -3,14 +3,15 @@ import React, { useState } from 'react';
 const App = () => {
   const [todoText, setTodoText] = useState('') //text which entering to the box
 
-  const [notStartedYetTodos, setNotStartedYetTodos] = useState(['aaaa','oooo'])
+  const [notStartedYetTodos, setNotStartedYetTodos] = useState([])
   const [inProgressTodos, setInProgressTodos] = useState([''])
   const [completeTodos, setCompleteTodos] = useState([''])
 
   const onChangeTodoText = (e) => setTodoText(e.target.value)
   const onClickAdd = () => {
     if(todoText !== "") {
-      setNotStartedYetTodos([...notStartedYetTodos, todoText])
+      setNotStartedYetTodos([...notStartedYetTodos, {id: notStartedYetTodos.length + 1, text:todoText}])
+      console.log(notStartedYetTodos);
       setTodoText('')
     }
   }
@@ -32,14 +33,14 @@ const App = () => {
 
   <div className="not_started_yet_area">
     <ul>
-      {notStartedYetTodos.map((todo, index) => {
+      {notStartedYetTodos.map((todo) => {
         return (
           <li key={todo}>{todo}
             <input type="text" value={todo.value}
             
             />
             <button>Edit</button>
-            <button onClick={() =>{onClickDelete(index)}}>Delete</button>
+            <button onClick={() =>{onClickDelete()}}>Delete</button>
           </li>
         )
       })}
