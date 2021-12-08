@@ -7,17 +7,10 @@ const App = () => {
   const [isEditing, setIsEditing] = useState(false)
   const [currentTodo, setCurrentTodo] = useState({}) //why is this object state? currentTodo is multiple?
 
-  // const handleInputChange = (e) => setTodo(e.target.value)//what is this?
+  const handleInputChange = (e) => setTodo(e.target.value)//what is this?
   const handleEditInputChange = (e) => setCurrentTodo({...currentTodo, text: e.target.value}) //
-
-  const handleInputChange = (e) => {
-    // console.log(e)
-    setTodo(e.target.value)
-    // console.log(todo)
-  }
+  
   const handleAdd = (e) => {
-    // console.log(e)
-    // console.log(todo, "TODO");
     e.preventDefault()
     if(todo !== "") {
       setTodos([
@@ -29,9 +22,8 @@ const App = () => {
           // state: 'incomplete'
         }
       ])
-      setTodo('')
+      setTodo('')//doesnt work?
     }
-    console.log(todos, "TODOS-handleAdd");
   }
 
   const handleUpdate = () => {
@@ -62,23 +54,7 @@ const App = () => {
 
   return (
   <>
-  <h1>Todo React App</h1>
-  {
-    console.log(todos, "TODOS-return")
-  }
-  <div className="input_area">
-    <form>
-      <input 
-      name="todo"
-      type="text"
-      placeholder="Create a new todo"
-      // value={todo}
-      onChange={handleInputChange}
-      />
-      <button onClick={handleAdd}>Add</button>
-    </form>
-  </div>
-
+  <h1>Todo React App</h1>  
   <div className="undone_area">
   {isEditing ? (
     <form>
@@ -93,11 +69,22 @@ const App = () => {
       <button onClick={() => setIsEditing(false)}>Cancel</button>
     </form>
   ) : (
-      <form>
-        
-      </form>
+    <div className="input_area">
+    <form>
+      <input 
+      name="todo"
+      type="text"
+      placeholder="Create a new todo"
+      // value={todo}
+      onChange={handleInputChange}
+      />
+      <button onClick={handleAdd}>Add</button>
+    </form>
+  
+    
+    </div>
   )}
-    <ul className="todo-list">
+  <ul className="todo-list">
       {todos.map((todo) => {
         return (
           <li key={todo.id}>{todo.text}
