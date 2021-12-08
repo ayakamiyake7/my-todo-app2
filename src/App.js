@@ -19,24 +19,34 @@ const App = () => {
           id: todos.length + 1,
           text: todo,
           //isDone: false,
-          // state: 'incomplete'
+          //state: 'incomplete'
         }
       ])
-      setTodo('')//doesnt work?
+      setTodo('')
     }
   }
 
-  const handleUpdate = () => {
-    setIsEditing(true)
-    setTodos([
-      ...todos,
-      {
-        id: currentTodo.id,
-        text: currentTodo.text,
-        //isDone: false,
-        // state: 'incomplete'
-      }
-    ])
+  const handleUpdate = (id, updatedTodo) => {//why does 'updatedTodo' appear?
+    const updatedItem = todos.map((todo) => {
+      return todo.id === id ? updatedTodo : todo;
+    })
+    setIsEditing(false)
+    setTodos(updatedItem)
+    // e.preventDefault()
+    // setIsEditing(true)
+    // setTodos([
+    //   ...todos,
+    //   {
+    //     id: currentTodo.id,
+    //     text: currentTodo.text,
+    //     //isDone: false,
+    //     // state: 'incomplete'
+    //   }
+    // ])
+  }
+
+  const handleEditOnChange = () => {// where should i write handleEditOnChange ---sample:form
+    handleUpdate(currentTodo.id, currentTodo)// nazo?
   }
 
   const handleClickDelete = (id) => {
@@ -55,9 +65,19 @@ const App = () => {
   return (
   <>
   <h1>Todo React App</h1>  
-  <div className="undone_area">
   {isEditing ? (
-    <form>
+  <div onSubmit={handleEditOnChange}> {/**not here...*/}
+    <div className="input_area">
+      <input 
+      name="todo"
+      type="text"
+      placeholder="Create a new todo"
+      value={todo}
+      onChange={handleInputChange}
+      />
+      <button onClick={handleAdd}>Add</button>
+    </div>
+    <div className="content">
       <input 
       name="editTodo"
       type="text"
@@ -65,23 +85,20 @@ const App = () => {
       value={currentTodo.text}
       onChange={handleEditInputChange}
       />
-      <button onClick={() => handleUpdate()}>Update</button>
+      <button onClick={handleUpdate}>Update</button>
       <button onClick={() => setIsEditing(false)}>Cancel</button>
-    </form>
+    </div>
+  </div>
   ) : (
     <div className="input_area">
-    <form>
       <input 
       name="todo"
       type="text"
       placeholder="Create a new todo"
-      // value={todo}
+      value={todo}
       onChange={handleInputChange}
       />
       <button onClick={handleAdd}>Add</button>
-    </form>
-  
-    
     </div>
   )}
   <ul className="todo-list">
@@ -94,7 +111,6 @@ const App = () => {
         )
       })}
     </ul>
-  </div>
   </>
   )
 }
