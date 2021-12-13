@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import "./style.css";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState(""); //the value in the input
 
+  const [filter, setFilter] = useState("notStarted");
   const [isEditing, setIsEditing] = useState(false);
   const [currentTodo, setCurrentTodo] = useState({}); //why is this object state? currentTodo is multiple?
 
@@ -20,7 +22,7 @@ const App = () => {
           id: todos.length + 1,
           text: todo,
           //isDone: false,
-          //state: 'incomplete'
+          status: "notStarted",
         },
       ]);
       setTodo("");
@@ -36,7 +38,7 @@ const App = () => {
     setTodos(updatedItem);
   };
 
-  const handleEditOnChange = (e) => {
+  const handleEditOnChange = () => {
     // e.preventDefault();
     handleUpdate(currentTodo.id, currentTodo); //?
   };
@@ -56,12 +58,14 @@ const App = () => {
     console.log({ ...todo });
   };
 
+  const handleStatusChange = () => {};
+
   return (
     <>
       <h1>Todo React App</h1>
+
       {isEditing ? (
         <>
-          {/**not here...*/}
           <div className="input_area">
             <input
               name="todo"
@@ -72,6 +76,7 @@ const App = () => {
             />
             <button onClick={handleAdd}>Add</button>
           </div>
+
           <div className="content">
             <form onSubmit={handleEditOnChange}>
               <input
@@ -81,28 +86,42 @@ const App = () => {
                 value={currentTodo.text}
                 onChange={handleEditInputChange}
               />
-              <input type="submit" value="update" />
-              <button onClick={() => setIsEditing(false)}>Cancel</button>
+              <input type="submit" value="update" className="content-update" />
+              <button
+                onClick={() => setIsEditing(false)}
+                className="content-grey"
+              >
+                Cancel
+              </button>
             </form>
           </div>
         </>
       ) : (
-        <div className="input_area">
-          <input
-            name="todo"
-            type="text"
-            placeholder="Create a new todo"
-            value={todo}
-            onChange={handleInputChange}
-          />
-          <button onClick={handleAdd}>Add</button>
-        </div>
+        <>
+          <div className="input_area">
+            <input
+              name="todo"
+              type="text"
+              placeholder="Create a new todo"
+              value={todo}
+              onChange={handleInputChange}
+            />
+            <button onClick={handleAdd}>Add</button>
+          </div>
+        </>
       )}
+
       <ul className="todo-list">
         {todos.map((todo) => {
           return (
             <li key={todo.id}>
               {todo.text}
+              <select>
+                <option value="all">All</option>
+                <option value="notStarted">Not Started</option>
+                <option value="inProgress">In Progress</option>
+                <option value="done">Done</option>
+              </select>
               <button
                 onClick={() => {
                   handleEditClick(todo);
@@ -115,6 +134,7 @@ const App = () => {
                 onClick={() => {
                   handleClickDelete(todo.id);
                 }}
+                className="content-grey"
               >
                 Delete
               </button>
@@ -122,6 +142,9 @@ const App = () => {
           );
         })}
       </ul>
+      <div id="notStarted" className="todo-place">
+        <h2>Not Started</h2>
+      </div>
     </>
   );
 };
