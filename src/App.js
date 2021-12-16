@@ -5,7 +5,7 @@ const App = () => {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState(""); //the value in the input
 
-  const [filter, setFilter] = useState("notStarted");
+  const [currentStatus, setCurrentStatus] = useState("notStarted");
   const [isEditing, setIsEditing] = useState(false);
   const [currentTodo, setCurrentTodo] = useState({}); //why is this object state? currentTodo is multiple?
 
@@ -59,6 +59,7 @@ const App = () => {
   };
 
   const handleStatusChange = () => {};
+  console.log("rendering");
 
   return (
     <>
@@ -117,7 +118,6 @@ const App = () => {
             <li key={todo.id}>
               {todo.text}
               <select>
-                <option value="all">All</option>
                 <option value="notStarted">Not Started</option>
                 <option value="inProgress">In Progress</option>
                 <option value="done">Done</option>
@@ -142,8 +142,111 @@ const App = () => {
           );
         })}
       </ul>
-      <div id="notStarted" className="todo-place">
-        <h2>Not Started</h2>
+      <div className="flex">
+        <div className="item">
+          <div id="notStarted" className="todo-place">
+            <h2>Not Started</h2>
+          </div>
+          <ul className="todo-list">
+            {todos.filter((todo) => {
+              console.log("click");
+              return (
+                <div>ok</div>
+                // <li key={todo.id}>
+                //   {todo.text}
+                //   <select>
+                //     <option value="notStarted">Not Started</option>
+                //     <option value="inProgress">In Progress</option>
+                //     <option value="done">Done</option>
+                //   </select>
+                //   <button
+                //     onClick={() => {
+                //       handleEditClick(todo);
+                //     }}
+                //   >
+                //     Edit
+                //   </button>
+                //   <button
+                //     onClick={() => {
+                //       handleClickDelete(todo.id);
+                //     }}
+                //     className="content-grey"
+                //   >
+                //     Delete
+                //   </button>
+                // </li>
+              );
+            })}
+          </ul>
+        </div>
+        {/* <div className="item">
+          <div id="inProgress" className="todo-place">
+            <h2>In progress</h2>
+          </div>
+          <ul className="todo-list">
+            {todos.map((todo) => {
+              return (
+                <li key={todo.id}>
+                  {todo.text}
+                  <select>
+                    <option value="notStarted">Not Started</option>
+                    <option value="inProgress">In Progress</option>
+                    <option value="done">Done</option>
+                  </select>
+                  <button
+                    onClick={() => {
+                      handleEditClick(todo);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleClickDelete(todo.id);
+                    }}
+                    className="content-grey"
+                  >
+                    Delete
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div> */}
+        {/* <div className="item">
+          <div id="notStarted" className="todo-place">
+            <h2>Do</h2>
+          </div>
+          <ul className="todo-list">
+            {todos.map((todo) => {
+              return (
+                <li key={todo.id}>
+                  {todo.text}
+                  <select>
+                    <option value="notStarted">Not Started</option>
+                    <option value="inProgress">In Progress</option>
+                    <option value="done">Done</option>
+                  </select>
+                  <button
+                    onClick={() => {
+                      handleEditClick(todo);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleClickDelete(todo.id);
+                    }}
+                    className="content-grey"
+                  >
+                    Delete
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div> */}
       </div>
     </>
   );
