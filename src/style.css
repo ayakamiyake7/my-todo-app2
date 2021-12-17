@@ -1,0 +1,94 @@
+body {
+  background: #fef0e0;
+  padding: 40px;
+}
+
+input {
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  padding: 8px 16px;
+  width: 220px;
+  font-size: 14px;
+}
+
+button {
+  border: none;
+  border-radius: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-left: 16px;
+  background: #ffca8d;
+}
+
+button:hover {
+  background: #f5c38a;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin: 8px 0 0;
+}
+
+li:first-child {
+  margin: 0;
+}
+
+select {
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 220px;
+  font-size: 14px;
+  background: #cfcfcf;
+  margin: 0 0 0 16px;
+}
+
+h2 {
+  margin: 0;
+}
+
+.input_area {
+  margin: 0 0 40px;
+}
+
+.list_area {
+  min-height: 332px;
+}
+
+.content-update {
+  border-radius: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-left: 16px;
+  background: #ffca8d;
+  width: auto;
+}
+
+.content-grey {
+  background: #cfcfcf;
+}
+
+.todo-list {
+  margin: 40px 0 0;
+}
+
+.todo-place {
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex .item {
+  flex: 1 1 30%;
+}
