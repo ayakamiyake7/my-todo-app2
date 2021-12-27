@@ -5,7 +5,7 @@ const App = () => {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState(""); ////the value in the input
 
-  const [currentStatus, setCurrentStatus] = useState("notStarted");
+  //const [todoStatus, setTodoStatus] = useState("notStarted");
   const [isEditing, setIsEditing] = useState(false);
   const [currentTodo, setCurrentTodo] = useState({}); ////why is this object state? currentTodo is multiple?
 
@@ -58,14 +58,15 @@ const App = () => {
     console.log({ ...todo });
   };
 
-  const handleStatusChangeNotStarted = (e) => {
+  const handleStatusChange = (e) => {
     e.preventDefault();
-    setCurrentStatus(e.target.value);
-    const a = todos.filter((todo) => {
+    //setTodoStatus(e.target.value);
+    setCurrentTodo({ ...currentTodo, status: e.target.value });
+    const StatusChangeItem = todos.filter((todo) => {
       return todo.status === "notStarted";
     });
-    setTodos(a);
-    console.log(a);
+    setTodos(StatusChangeItem);
+    console.log(todo.status);
   };
 
   useEffect(() => {
@@ -128,14 +129,15 @@ const App = () => {
           <div id="notStarted" className="todo-place">
             <h2>Not Started</h2>
             <ul className="todo-list">
-              {todos.map((todo) => {
+              {todos.map((todo, currentTodo) => {
                 return (
                   <li key={todo.id}>
                     {todo.text}
+                    {currentTodo.status}
 
                     <select
-                      value={currentStatus.status}
-                      onChange={handleStatusChangeNotStarted}
+                      value={currentTodo.status}
+                      onChange={handleStatusChange}
                     >
                       <option value="notStarted">Not Started</option>
                       <option value="inProgress">In Progress</option>
@@ -167,15 +169,16 @@ const App = () => {
         <div className="item">
           <div id="inProgress" className="todo-place">
             <h2>In progress</h2>
-            <ul className="todo-list">
-              {todos.map((todo) => {
+            {/* <ul className="todo-list">
+              {todos.map((todo, currentTodo) => {
                 return (
                   <li key={todo.id}>
                     {todo.text}
+                    {currentTodo.status}
 
                     <select
-                      value={currentStatus.status}
-                      // onChange={handleStatusChange}
+                      value={currentTodo.status}
+                      onChange={handleStatusChange2}
                     >
                       <option value="notStarted">Not Started</option>
                       <option value="inProgress">In Progress</option>
@@ -200,14 +203,14 @@ const App = () => {
                   </li>
                 );
               })}
-            </ul>
+            </ul> */}
           </div>
         </div>
 
         <div className="item">
           <div id="done" className="todo-place">
             <h2>Done</h2>
-            <ul className="todo-list">
+            {/* <ul className="todo-list">
               {todos.map((todo) => {
                 return (
                   <li key={todo.id}>
@@ -240,7 +243,7 @@ const App = () => {
                   </li>
                 );
               })}
-            </ul>
+            </ul> */}
           </div>
         </div>
       </div>
